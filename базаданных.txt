@@ -1,0 +1,47 @@
+DROP TABLE Student_INFO,Student_GROUP,Student_DIRECTION;
+CREATE TABLE Student_GROUP 
+(
+	Group_ID INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	Group_NAME varchar(255) not null
+);
+CREATE TABLE Student_DIRECTION
+(
+	Direction_ID INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	Direction_NAME varchar(255) not null
+);
+CREATE TABLE Student_INFO 
+(
+	Student_ID INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	Student_NAME varchar(255) not null,
+	Student_SURNAME varchar(255) not null,
+	DIRECTION_ID INT not null,
+	GROUP_ID INT not null,
+	foreign key (GROUP_ID) references Student_GROUP(Group_ID) on delete cascade,
+	foreign key (DIRECTION_ID) references Student_DIRECTION(Direction_ID) on delete cascade
+);
+
+INSERT INTO Student_GROUP (Group_NAME) 
+VALUES ('Daring'),('Vestige'),('Amphibian'),('Discussion');
+
+INSERT INTO Student_DIRECTION (Direction_NAME) 
+VALUES ('Программисты'),('Архитекторы'),('Инженеры');
+
+INSERT INTO Student_INFO (Student_NAME,Student_SURNAME,DIRECTION_ID,GROUP_ID) 
+VALUES ('Альберт','Потапов',1,2),
+('Марианна','Милованова',1,3),
+('Кристина','Дроздова',2,4),
+('Валерия','Белозёрова',2,3),
+('Любомира','Кармазина',3,4),
+('Добромысл','Кропотов',1,2),
+('Куприян','Редкий',2,3),
+('Валентин','Федотов',2,1),
+('Евгения','Баранова',3,2),
+('Тарас','Фомин',3,3),
+('Викторина','Лазарева',1,4),
+('Серафима','Репина',2,2),
+('Берек','Ивлеев',1,4),
+('Надежда','Голубева',3,2);
+
+select * from Student_GROUP;
+select * from Student_DIRECTION;
+select * from Student_INFO
